@@ -6,4 +6,5 @@
   * [Channel](robochart-api/channel.md)
   * [Robotic Platform](robochart-api/robotic-platform.md)
   * [Controller](robochart-api/controller.md)
+  * [State Machine](robochart-api/state-machine.md)
 
