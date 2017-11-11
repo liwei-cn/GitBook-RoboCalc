@@ -1,6 +1,6 @@
 # Framework Usage {#framework-usage}
 
-![](/assets/OAModule.png)
+![](/assets/OAModule.png)![](/assets/OAModule.png)
 
 A package called OAModule is created. This package defines a module `OAModule,`and the module includes a robotic platform `Robot`and a controller `ContMovement`. The robot provides one interface `MovementI` and uses one interface `EventsI.`The first interface groups the operation `Move` and a const variable `PI`, and the second interface  groups event channel `obstacle`. The robotic platform is composed of a controller `ContMovement` that contains the state machine `StmMovement`. The state machine declares a variable `dir` and the clock `T` . It consists of two states \(`Moving` and `Turning`\), and the first uses the operation to move the robot forward. If an obstacle is found, the clock is reset and the state `Turning` is entered. In the `Turning` state, the robot starts turning based on the location of the obstacle, and if the time passed a certain threshold PI, the robot enters the `Moving` state again.
 
@@ -256,5 +256,6 @@ States should be instantiated bottom up, and transitions should be instantiated 
 ###  {#state}
 
 ###  {#transition}
+
 
 
