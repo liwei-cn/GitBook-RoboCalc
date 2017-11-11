@@ -3,7 +3,7 @@
 The classes provided in the framework include some aspects of the semantics of the corresponding RoboChart components. They cover the following components:
 
 * Module
-* HardwareComponent
+* Robotic Platform
 * Controller
 * StateMachine
 * State
