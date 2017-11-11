@@ -2,6 +2,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The name and type of the event used for connecting communication between different components should be the same.
 
-* 
+* Only asynchronous communication is supported.
+
 
 
