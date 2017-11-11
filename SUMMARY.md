@@ -9,5 +9,6 @@
   * [State Machine](robochart-api/state-machine.md)
   * [Channel](robochart-api/channel.md)
   * [Event](robochart-api/event.md)
+  * [Timer](robochart-api/timer.md)
 * [Notes](notes.md)
 
