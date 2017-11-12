@@ -4,5 +4,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * Only asynchronous communication is supported.
 
+* No composite state is supported.
+
 
 
