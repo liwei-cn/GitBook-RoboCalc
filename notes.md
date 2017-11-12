@@ -16,7 +16,9 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * Defined interfaces only contain events.
 
-* No event trigger is allowed for the ingoing transition of a junction or probabilistic junction. 
+* No event trigger is allowed for the ingoing transition of a junction or probabilistic junction.
+
+* A module should be self-contained. The operations used by state machine should be provided by the robotic platform or defined inside the controller. 
 
 
 
