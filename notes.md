@@ -8,5 +8,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The generated code is not targeted for some specific simulator. The user needs to extend the framework to fit different needs.
 
+* No operation is supported.
+
 
 
