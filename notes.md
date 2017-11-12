@@ -6,5 +6,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * No composite state is supported.
 
+* The generated code is not targeted for some specific simulator. The user needs to extend the framework to fit different needs.
+
 
 
