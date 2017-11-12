@@ -10,5 +10,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * No operation is supported.
 
+* The clock should only be defined inside the state machine
+
 
 
