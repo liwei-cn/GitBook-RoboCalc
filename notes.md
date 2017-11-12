@@ -2,7 +2,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The name and type of the event used for connecting communication between different components should be the same.
 
-* Only asynchronous communication is supported.
+* Only asynchronous communication is supported \(TODO\).
 
 * No composite state is supported \(TODO\).
 
@@ -15,6 +15,8 @@ The following are current constraints of usage of RoboChart for constructing a s
 * The simulation framework can execute multiple transitions at one control cycle, but it may cause the 'infinite loop' issue \(TODO\).
 
 * Defined interfaces only contain events.
+
+* No event trigger is allowed for the ingoing transition of a junction or probabilistic junction. 
 
 
 
