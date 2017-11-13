@@ -20,5 +20,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * A module should be self-contained. The operations used by state machine should be provided by the robotic platform or defined inside the controller.
 
+* There should be be only one entry/exit action in each state, but the entry/exit action can include a sequence of statements.
+
 
 
