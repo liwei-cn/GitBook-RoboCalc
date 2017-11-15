@@ -28,7 +28,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * no pre and post conditions for the functions are generated.
 
-*  No consecutive junction/p 
+* No consecutive junction/probabilistic junction is allowed.
 
 
 
