@@ -24,5 +24,11 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The name of variables and operations should be unique \(Maybe I can relief this constraint later\).
 
+* Only support since for the clock related condition
+
+* no pre and post conditions for the functions are generated.
+
+*  No consecutive junction/p 
+
 
 
