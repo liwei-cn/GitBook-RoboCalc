@@ -22,5 +22,7 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * There should be be only one entry/exit action in each state, but the entry/exit action can include a sequence of statements.
 
+* The name of variables and operations should be unique.
+
 
 
