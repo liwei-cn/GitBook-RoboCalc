@@ -34,3 +34,9 @@ A video showing how to build a basic state machine controller can be found here:
 
 [https://youtu.be/I5L\_PGstu40](https://youtu.be/I5L_PGstu40)
 
+
+
+The complete code for the obstacle avoidance example can be found here:
+
+
+
