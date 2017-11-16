@@ -24,13 +24,13 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The name of variables and operations should be unique \(Maybe I can relief this constraint later\).
 
-* Only support since for the clock related condition
+* Only support since for the clock related condition.
 
 * no pre and post conditions for the functions are generated.
 
 * No consecutive junction/probabilistic junction is allowed.
 
-
-
 A video showing how to build a basic state machine controller can be found here:
+
+
 
