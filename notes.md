@@ -32,9 +32,5 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 A video showing how to build a basic state machine controller can be found here:
 
-
-
-
-
-
+[https://youtu.be/I5L\_PGstu40](https://youtu.be/I5L_PGstu40)
 
