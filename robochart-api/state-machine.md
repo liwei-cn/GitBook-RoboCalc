@@ -112,7 +112,7 @@ void State::execute() {
         printf("Executing a state %s\n", this->name.c_str());
         // if none of the transitions succeed, execute the substates
         if (try_transitions() == false) {
-            while(try_execute_substates(states));
+            while(try_execute_substates(states));  //this line always executed as the state machine (which is treated as a composite state) has 0 transitions; hence its substates are executed
         }
         break;
     case s_Exit:
