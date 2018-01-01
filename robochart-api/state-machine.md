@@ -148,7 +148,7 @@ bool State::try_execute_substates(std::vector<std::shared_ptr<State>> s) {
         if (s[i]->stage == s_Inactive) continue;
         else {
             s[i]->execute();
-            if (s[i]->stage == s_Inactive) { return true; }
+            if (s[i]->stage == s_Inactive) { return true; }  //if there is any transition happened; loop it again.
             else { return false; }
         }
     }
