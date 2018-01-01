@@ -85,7 +85,7 @@ namespace robochart {
 bool Transition::execute() {
     reg();
     if (condition() && check()) {  //check condition() first if it is false no need to perform check()
-        auto src = source.lock();
+        auto src = source.lock();  //weak_ptr has to be copied into a shared_ptr before usage
         src->stage = s_Exit;
         src->execute();
         action();
