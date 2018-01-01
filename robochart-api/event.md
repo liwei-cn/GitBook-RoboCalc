@@ -123,7 +123,7 @@ public:
     }
     ~optional() {}
 private:
-    T v;
+    T v;  //the value of this optional class; it can be the value associated with an event or otherEvent
     bool set;
 };
 
