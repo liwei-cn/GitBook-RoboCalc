@@ -113,7 +113,7 @@ void State::execute() {
         // if none of the transitions succeed, execute the substates
         if (try_transitions() == false) {
             while(try_execute_substates(states));  //this line is always executed as the state machine (which is treated as a composite state) has 0 transitions; hence its substates are executed
-        }
+        }                                          //this makes sure more than one transition can happen at one cycle
         break;
     case s_Exit:
         exit();
