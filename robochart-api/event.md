@@ -104,7 +104,7 @@ optional<std::weak_ptr<Event<Args...>>> otherEvent
 
 namespace robochart {
 
-template <typename T>
+template <typename T>  //template class
 class optional {
 public:
     optional(): set(false) {}
@@ -133,3 +133,4 @@ private:
 ```
 
 We use the template class, as the type of the associated value the an event is unknown. Just like we can create** function templates**, we can also create **class templates**, allowing classes to have members that use template parameters as types.
+
