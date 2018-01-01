@@ -108,7 +108,7 @@ void State::execute() {
         }
         stage = s_Execute;
         break;
-    case s_Execute:
+    case s_Execute:  //after the first cycle, the state machine execution always starts here as it is always in s_Execute stage
         printf("Executing a state %s\n", this->name.c_str());
         if (try_transitions() == false) {
             while(try_execute_substates(states));
