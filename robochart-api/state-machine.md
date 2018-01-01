@@ -145,6 +145,7 @@ void State::cancel_transitions(int i) {
 
 bool State::try_execute_substates(std::vector<std::shared_ptr<State>> s) {
     for (int i = 0; i < s.size(); i++) {
+        // printf("state index : %d; stage: %d\n", i, states[i]->stage);
         // there should be only one active state 
         if (s[i]->stage == s_Inactive) continue;
         else {
