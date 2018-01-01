@@ -84,7 +84,7 @@ namespace robochart {
 
 bool Transition::execute() {
     reg();
-    if (condition() && check()) {
+    if (condition() && check()) {  //check condition() first if it is false no need to perform check()
         auto src = source.lock();
         src->stage = s_Exit;
         src->execute();
@@ -174,3 +174,4 @@ The`check`function simply returns the result of calling the`check`function of th
 Transition `t2` illustrates the implementation of a transition with a condition.
 
 The condition calculates the time steps elapsed recorded in `T` . The time step is increased in every cycle of the simulation followed by the execution of the state machine. If the time passes certain threshold, transition `t2` is trigger.
+
