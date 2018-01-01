@@ -127,7 +127,7 @@ bool State::try_transitions() {
     for (int i = 0; i < transitions.size(); i++) {
         bool b = transitions[i]->execute();
         if (b) {
-            cancel_transitions(i);
+            cancel_transitions(i); //erase OTHER events (in the channel) already registered by the transitions of this state, as the state tried its every possible transitions
             return true;
         }
     }
