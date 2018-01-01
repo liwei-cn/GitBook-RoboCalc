@@ -101,9 +101,9 @@ void State::execute() {
     switch (stage) {
     case s_Enter:
         printf("Entering State %s\n", this->name.c_str());
-        entry();
-        if (initial() >= 0) {  //The first cycle executes the entry() of the initial state of the state machine; entry() of stm is empty
-            states[initial()]->stage = s_Enter;  //enter the initial state: states[0]
+        entry();  //The first cycle executes the entry() of the initial state of the state machine; entry() of stm is empty
+        if (initial() >= 0) {  //enter the initial state: states[0]
+            states[initial()]->stage = s_Enter;  
             states[initial()]->execute();
         }
         stage = s_Execute;
