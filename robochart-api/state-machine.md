@@ -12,7 +12,6 @@ The transitions of the state are stored in the variable`transitions`. The code f
 //State.h
 #include <vector>
 #include <memory>
-#include "Stages.h"
 
 namespace robochart {
 class Transition;
