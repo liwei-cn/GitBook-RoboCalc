@@ -27,7 +27,7 @@ public:
     virtual int initial() { return -1; }
 
     enum Stages {
-	s_Enter, s_Execute, s_Exit, s_Inactive
+    s_Enter, s_Execute, s_Exit, s_Inactive
     };
     Stages stage;
     std::vector<std::shared_ptr<State>> states;
@@ -88,11 +88,11 @@ bool Transition::execute() {
     reg();
     if (condition() && check()) {  //check condition() first if it is false no need to perform check()
         auto src = source.lock();  //weak_ptr has to be copied into a shared_ptr before usage
-        src->stage = s_Exit;
+        src->stage = State::s_Exit;
         src->execute();
         action();
         auto tgt = target.lock();
-        tgt->stage = s_Enter;
+        tgt->stage = State::s_Enter;
         tgt->execute();
         return true;
     }
