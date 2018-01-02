@@ -110,7 +110,7 @@ public:
 
 }
 
-#endif /* RCCHANNEL_H_ */
+#endif 
 ```
 
 * `reg`This function registers an event in the channel. That is, an event pointer is pushed into the channel buffer. Every time a transition is tried, the `reg`function will be called. 
