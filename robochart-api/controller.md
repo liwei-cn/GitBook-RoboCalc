@@ -4,19 +4,28 @@ A controller contains a single reference to a state machine that must be instant
 
 ```cpp
 //Controller.h
+#ifndef ROBOCALC_CONTROLLER_H_
+#define ROBOCALC_CONTROLLER_H_
+
 #include "State.h"
 
 namespace robochart {
 
 class Controller {
 public:
-    std::shared_ptr<StateMachine> stm;
-    Controller();
-    virtual ~Controller();
-    virtual void Execute();
+	std::shared_ptr<StateMachine> stm;
+	Controller() {}
+	virtual ~Controller() {}
+	virtual void Execute() {
+		if (stm != nullptr) stm->execute();
+	}
+	virtual void Initialise() {}
 };
 
 }
+
+#endif
 ```
+
 
 
