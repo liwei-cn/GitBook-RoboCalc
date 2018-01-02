@@ -41,8 +41,10 @@ public:
     void clear() {
         events.clear();
     }
-
+    //Args ... args: the number of arbitrary type of arguments of the event; in principle, there can be multiple numbers, but here we use one, which is optional.
+    //The optional class include the value of the argument
     std::shared_ptr<Event<Args...>> reg(std::string source, Args ... args) {
+        //std::lock_guard<std::mutex> lck(m);
         std::shared_ptr<Event<Args...>> e = std::make_shared<Event<Args...>>(name, source, args...);
         // printf("event value: %f\n", std::get<0>(*e->getParameters()).value());  //std::get<0>(*e->getParameters()): optional
         // printf("registering event uses %ld\n", e.use_count());  //1 ownership: e
@@ -51,13 +53,15 @@ public:
         // printf("event registered uses %ld\n", e.use_count());   //2 ownerships: e and the one stored in the channel; after 'return e', e goes out of scope, while another shared_pointer is stored in the channel
         return e;
     }
-
+    //This is the overloaded function
     std::shared_ptr<Event<Args...>> reg(std::shared_ptr<Event<Args...>> ci) {
+        //std::lock_guard<std::mutex> lck(m);
         events.push_back(ci);
         return ci;
     }
 
     bool check(std::shared_ptr<Event<Args...>> e) {
+        //std::lock_guard<std::mutex> lck(m);
         for (typename std::vector<std::shared_ptr<Event<Args...>>>::iterator it = events.begin();
                 it != events.end(); ++it) {
             if (e->compatible(*it)) {
@@ -71,6 +75,7 @@ public:
         return false;
     }
     void cancel(std::shared_ptr<Event<Args...>> e) {  //This will create a temp new shared pointer which will be out of scope when the function terminates
+        //std::lock_guard<std::mutex> lck(m);
         // printf("event is not null: %d\n", e != nullptr);
         // printf("condition is %d\n", !(e->getOther().exists()));
         if (!e->getOther().exists()) {
@@ -85,6 +90,7 @@ public:
         }
     }
     void accept(std::shared_ptr<Event<Args...>> e) {
+        //std::lock_guard<std::mutex> lck(m);
         if (e->getOther().exists()) {
             e->accept();   //The first component will only accept the event (but not delete the event in the channel), because e->getOther().value().lock()->isAccepted() is false;
                            //The second component will accept the event as well; but it will also delete both events in the channel, because e->getOther().value().lock()->isAccepted() becomes true.         
@@ -106,6 +112,7 @@ public:
         }
     }
     void acceptAndDelete(std::shared_ptr<Event<Args...>> e) {
+        //std::lock_guard<std::mutex> lck(m);
         if (e->getOther().exists()) {  //delete both shared_ptr in the channel; if check() returns true; e->getOther().exists() will return true
             std::weak_ptr<Event<Args...>> other = e->getOther().value();
             typename std::vector<std::shared_ptr<Event<Args...>>>::iterator p1 = std::find(events.begin(), events.end(), e);
