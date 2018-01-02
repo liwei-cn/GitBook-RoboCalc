@@ -71,6 +71,7 @@ public:
         // printf("event is not null: %d\n", e != nullptr);
         // printf("condition is %d\n", !(e->getOther().exists()));
         if (!e->getOther().exists()) {
+            // printf("removing event, occurrences %d\n", (int)events.count(e));
             typename std::vector<std::shared_ptr<Event<Args...>>>::iterator position = std::find(events.begin(), events.end(), e);
             if (position != events.end())  // == events.end() means the element was not found
                events.erase(position);
