@@ -86,9 +86,9 @@ public:
             e->accept();   //The first component will only accept the event (but not delete the event in the channel), because e->getOther().value().lock()->isAccepted() is false;
                            //The second component will accept the event as well; but it will also delete both events in the channel, because e->getOther().value().lock()->isAccepted() becomes true.         
             if (e->getOther().value().lock()->isAccepted()) {
-            	// printf("the other has been accepted\n");
-		// The other has already been accepted so I can remove and reset both
-		// I can only remove them if both have been accepted
+                // printf("the other has been accepted\n");
+        // The other has already been accepted so I can remove and reset both
+        // I can only remove them if both have been accepted
                 std::weak_ptr<Event<Args...>> other = e->getOther().value();
                 typename std::vector<std::shared_ptr<Event<Args...>>>::iterator p1 = std::find(events.begin(), events.end(), e);
                   if (p1 != events.end())
@@ -97,6 +97,8 @@ public:
                       if (p2 != events.end())
                           events.erase(p2);
                 printf("done accepting and reseting event\n");
+                //printf("done accepting event (uses %ld)\n", e.use_count());          //2
+                //printf("done accepting other (uses %ld)\n", other.use_count());      //0
             }
         }
     }
