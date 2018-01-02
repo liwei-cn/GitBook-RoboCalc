@@ -41,6 +41,8 @@ public:
 
     std::shared_ptr<Event<Args...>> reg(std::string source, Args ... args) {
         std::shared_ptr<Event<Args...>> e = std::make_shared<Event<Args...>>(name, source, args...);
+        // printf("event value: %f\n", std::get<0>(*e->getParameters()).value());  //std::get<0>(*e->getParameters()): optional
+        // printf("registering event uses %ld\n", e.use_count());  //1 ownership: e
         events.push_back(e);
         return e;
     }
