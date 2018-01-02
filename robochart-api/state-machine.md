@@ -26,6 +26,9 @@ public:
     virtual void exit() {}
     virtual int initial() { return -1; }
 
+    enum Stages {
+	s_Enter, s_Execute, s_Exit, s_Inactive
+    };
     Stages stage;
     std::vector<std::shared_ptr<State>> states;
     std::vector<std::shared_ptr<Transition>> transitions;
