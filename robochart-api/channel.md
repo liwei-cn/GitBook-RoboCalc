@@ -34,7 +34,7 @@ public:
     uint size() {
         return events.size();
     }
-
+    //clear the channel
     void clear() {
         events.clear();
     }
