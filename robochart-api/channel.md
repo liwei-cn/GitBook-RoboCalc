@@ -103,7 +103,7 @@ public:
         }
     }
     void acceptAndDelete(std::shared_ptr<Event<Args...>> e) {
-        if (e->getOther().exists()) {
+        if (e->getOther().exists()) {  //delete both shared_ptr in the channel; if check() returns true; e->getOther().exists() will return true
             std::weak_ptr<Event<Args...>> other = e->getOther().value();
             typename std::vector<std::shared_ptr<Event<Args...>>>::iterator p1 = std::find(events.begin(), events.end(), e);
               if (p1 != events.end())
