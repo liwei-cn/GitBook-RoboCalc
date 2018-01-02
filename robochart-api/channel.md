@@ -75,6 +75,7 @@ public:
             if (position != events.end())  // == events.end() means the element was not found
                events.erase(position);
             printf("event removed from channel\n");
+            //e.reset();                         //no need to reset the event, as it will go out of scope after the function call terminates; also if e is reset before erase, the erase wont be finished
         } else {
             printf("error removing event\n");
         }
