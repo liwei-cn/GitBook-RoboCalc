@@ -68,6 +68,8 @@ public:
         return false;
     }
     void cancel(std::shared_ptr<Event<Args...>> e) {
+        // printf("event is not null: %d\n", e != nullptr);
+        // printf("condition is %d\n", !(e->getOther().exists()));
         if (!e->getOther().exists()) {
             typename std::vector<std::shared_ptr<Event<Args...>>>::iterator position = std::find(events.begin(), events.end(), e);
             if (position != events.end())  // == events.end() means the element was not found
