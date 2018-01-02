@@ -22,7 +22,7 @@ template<typename ...Args>
 class Channel {
 private:
     std::string name;
-    std::vector<std::shared_ptr<Event<Args...>>>events;
+    std::vector<std::shared_ptr<Event<Args...>>>events;  //store the number of shared event pointer in the channel
 public:
     Channel(std::string n):
     name(n) {
