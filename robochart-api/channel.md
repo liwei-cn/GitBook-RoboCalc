@@ -16,6 +16,8 @@ A channel is instantiated using the class`Channel`instantiated with the types of
 #include <iostream>
 #include <algorithm>
 
+//The channel is shared by different components
+
 namespace robochart {
 
 template<typename ...Args>
