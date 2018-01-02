@@ -12,9 +12,9 @@ A channel is instantiated using the class`Channel`instantiated with the types of
 #include <memory>
 #include <mutex>
 #include <set>
-#include "Event.h"
 #include <iostream>
 #include <algorithm>
+#include "Event.h"
 
 //The channel is shared by different components
 
