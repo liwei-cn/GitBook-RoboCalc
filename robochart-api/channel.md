@@ -5,8 +5,8 @@ A channel is instantiated using the class`Channel`instantiated with the types of
 ```cpp
 //Channel.h
 
-#ifndef RCCHANNEL_H_
-#define RCCHANNEL_H_
+#ifndef ROBOCALC_CHANNEL_H_
+#define ROBOCALC_CHANNEL_H_
 
 #include <stdlib.h>
 #include <memory>
