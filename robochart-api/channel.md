@@ -67,7 +67,7 @@ public:
         printf("checking is false\n");
         return false;
     }
-    void cancel(std::shared_ptr<Event<Args...>> e) {
+    void cancel(std::shared_ptr<Event<Args...>> e) {  //This will create a temp new shared pointer which will be out of scope when the function terminates
         // printf("event is not null: %d\n", e != nullptr);
         // printf("condition is %d\n", !(e->getOther().exists()));
         if (!e->getOther().exists()) {
