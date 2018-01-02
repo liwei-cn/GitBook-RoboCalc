@@ -59,7 +59,7 @@ public:
                 it != events.end(); ++it) {
             if (e->compatible(*it)) {
                 e->match(*it);
-                (*it)->setOther(e);
+                (*it)->setOther(e); //e->match(*it) and (*it)->setOther(e) will make sure the matched event will have a reference to each other
                 printf("checking is true\n");
                 return true;
             }
@@ -110,7 +110,7 @@ public:
 
 }
 
-#endif 
+#endif
 ```
 
 * `reg`This function registers an event in the channel. That is, an event pointer is pushed into the channel buffer. Every time a transition is tried, the `reg`function will be called. 
