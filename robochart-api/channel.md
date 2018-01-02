@@ -44,6 +44,8 @@ public:
         // printf("event value: %f\n", std::get<0>(*e->getParameters()).value());  //std::get<0>(*e->getParameters()): optional
         // printf("registering event uses %ld\n", e.use_count());  //1 ownership: e
         events.push_back(e);
+        // printf("event stored in the set: %p", *events.begin()); //The channel stores the address of shared pointer; the address of the shared pointer pointing to the same object will have the same address
+        // printf("event registered uses %ld\n", e.use_count());   //2 ownerships: e and the one stored in the channel; after 'return e', e goes out of scope, while another shared_pointer is stored in the channel
         return e;
     }
 
