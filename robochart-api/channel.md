@@ -25,7 +25,7 @@ class Channel {
 private:
     std::string name;
     std::vector<std::shared_ptr<Event<Args...>>>events;  //store the number of shared event pointer in the channel
-    //	std::mutex m;
+    //std::mutex m;
 public:
     Channel(std::string n):
     name(n) {
