@@ -30,7 +30,7 @@ public:
 
     virtual ~Channel() {
     }
-
+    //return the size of the channel
     uint size() {
         return events.size();
     }
