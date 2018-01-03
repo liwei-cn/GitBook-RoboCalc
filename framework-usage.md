@@ -205,7 +205,7 @@ public:
             }
             bool check() {
                 if (S->obstacle->check(event) == true) {
-                    S->dir = std::get<0>(*event->getParameters()).value();
+                    S->dir = std::get<0>(*event->getOther().value().lock()->getParameters()).value();
                     ClearEvent();
                     S->T->SetCounter(0);
                     return true;
