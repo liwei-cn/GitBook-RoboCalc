@@ -6,7 +6,6 @@ The framework is formed by a number of C++ classes that implement key features o
 * There is a single controller;
 * There is a single state machine;
 * Entry, exit and transition actions terminate and fit within a single step of the simulation
-* There are no during actions.
 
 Despite the constrains of the current simulation framework, it can still be used for modelling a wide variety of robotic controllers. In the next chapter, we demonstrate how these classes are used to construct a simulation of a simple RoboChart model. The final chapter provides more details about the framework classes.
 
@@ -21,7 +20,4 @@ The architecture of a simulation is as shown in the picture below, where we cons
 ![](/assets/simulation-class-diagram.png)
 
 The entry point of the simulation is the execute method of the`Module`class. The blue boxes correspond to framework classes that must be extended to create a simulation. The methods shown in the classes can be implemented in the subclass to provide specific behaviours such as the entry action of a state.
-
-
-
 
