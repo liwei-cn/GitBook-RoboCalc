@@ -18,7 +18,7 @@ It takes a`TConfigurationNode`that can be used to read parameters from the XML e
 
 #include <argos3/core/control_interface/ci_controller.h>
 
-class OAModule : public argos::CCI_Controller{
+class OAModule : public argos::CCI_Controller {
 public:
     OAModule() :
             OAModule_Robot(nullptr),
