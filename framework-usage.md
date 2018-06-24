@@ -132,7 +132,7 @@ private:
 };
 ```
 
-The `ContMovement` controller receives pointers to the robot, and one channel`obstacle`. The`stm`field needs to be set by the module in the Init function to avoid issues with circular dependencies.
+The `ContMovement` controller receives pointers to the robot, and one channel`obstacle`. The`stm`field needs to be set by the module in the `Init()` function to avoid issues with circular dependencies.
 
 ## State Machine {#state-machine}
 
