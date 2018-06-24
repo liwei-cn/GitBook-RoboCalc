@@ -204,6 +204,7 @@ public:
                 }
             }
             bool check() {
+                reg();
                 if (S->obstacle->check(event) == true) {
                     S->dir = std::get<0>(*event->getOther().value().lock()->getParameters()).value();
                     ClearEvent();
