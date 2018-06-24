@@ -4,15 +4,11 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * Only asynchronous communication is supported \(TODO\).
 
-* No composite state is supported \(TODO\).
-
 * The generated code is not targeted for some specific simulator. The user needs to extend the framework to fit different needs.
-
-* No operation is supported \(the user can specify composite state if needed\).
 
 * The clock should only be defined inside the state machine.
 
-* The simulation framework can execute multiple transitions at one control cycle, but it may cause the 'infinite loop' issue \(TODO\).
+* The simulation framework can execute multiple transitions at one control cycle, but it may cause the 'infinite loop' issue. This is known as deadlock. 
 
 * Defined interfaces only contain events.
 
@@ -34,9 +30,5 @@ A video showing how to build a basic state machine controller can be found here:
 
 [https://youtu.be/I5L\_PGstu40](https://youtu.be/I5L_PGstu40)
 
-
-
 The complete code for the obstacle avoidance example can be found here:
-
-
 
