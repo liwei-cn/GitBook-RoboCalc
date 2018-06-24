@@ -10,4 +10,7 @@ The classes provided in the framework include some aspects of the semantics of t
 * Transition
 * Channel
 * Event
-* optional
+* Optional
+
+
+
