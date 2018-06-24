@@ -32,7 +32,7 @@ It also implements the functions`Init`and `Execute`. Init function instantiates 
 
 ## RobotHardware {#robot}
 
-The `HardwareComponent`class is a abstract class that include two functions `Sensors()` and `Actuators()`. These two functions need to be extended.
+The `HardwareComponent`class is a abstract class that include two virtual functions `Sensors()` and `Actuators()`. These two functions need to be extended.
 
 ```cpp
 //HardwareComponent.h
