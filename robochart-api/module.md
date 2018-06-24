@@ -8,7 +8,7 @@ In ARGoS, `Init`has the following signature:
 virtual void Init(argos::TConfigurationNode& t_node);
 ```
 
-It takes a`TConfigurationNode`that can be used to read parameters from the XML experiment file. The module class overwrites the `ControlStep()` function of the `CCI_Controller`class and calls the `Execute()`function. For the function `Execute()`, in the current version of the framework, it first calls the`Sensors`method of the robot, then the`Execute`method of the controller and finally the`actuators`method of the robot. The implementation of the module class for the obstacle avoidance example is as follows:
+It takes a`TConfigurationNode`that can be used to read parameters from the XML experiment file. The module class overwrites the `ControlStep()` function of the `CCI_Controller`class and calls the `Execute()`function. For the function `Execute()`, in the current version of the framework, it first calls the`Sensors()`method of the robot, then the`Execute()`method of the controller and finally the`Actuators()`method of the robot. The implementation of the module class for the obstacle avoidance example is as follows:
 
 ```cpp
 //OAModule.h
