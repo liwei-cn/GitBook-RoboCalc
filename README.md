@@ -17,7 +17,7 @@ The treatment of given types \(primitive types\) is slightly less clear because 
 
 The architecture of a simulation is as shown in the picture below, where we consider an example described in the next section as well the general classes of the framework.
 
-![](/assets/simulation-class-diagram.png)
+![](/assets/simulation-class-diagram-modified.png)
 
 The entry point of the simulation is the execute method of the`Module`class. The blue boxes correspond to framework classes that must be extended to create a simulation. The methods shown in the classes can be implemented in the subclass to provide specific behaviours such as the entry action of a state.
 
