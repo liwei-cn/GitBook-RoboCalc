@@ -73,7 +73,7 @@ If the state is composite, its substates are stored in the variable`states`. In 
 
 Notice that it is not possible to define the transitions of the state directly in the class because of a circular dependency between states and transitions. For this reason, transitions must be instantiated and added to the variable`transitions`of the source state.
 
-For example, in our obstacle avoidance example, the`Turning`state has references to the robot \(to access the`Move`operation\), and the state machine \(to access variable `dir`  and clock `T`\); it provides the entry action that sets the angular speed of the robot.
+For example, in our obstacle avoidance example, the`Turning`state has reference to the robot \(to access the`Move`operation\), and the state machine \(to access variable `dir`  and clock `T`\); it provides the entry action that sets the angular speed of the robot.
 
 ## State Machine {#state-machine}
 
