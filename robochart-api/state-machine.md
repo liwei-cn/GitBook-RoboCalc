@@ -69,7 +69,7 @@ public:
 }
 ```
 
-If the state is composite, its substates are stored in the variable`states`. In this case, the function`initial()`must be implemented and return the index of the initial state. Any state \(e.g. a state machine\) must extend the class State and can provide entry and exit actions.
+If the state is composite, its substates are stored in the variable`states`. In this case, the function`initial()`must be implemented and return the index of the initial state. Any state \(e.g. a state machine\) must extend the class State and can provide entry, during and exit actions.
 
 Notice that is it not possible to define the transitions of the state directly in the class because of a circular dependency between states and transitions. For this reason, transitions must be instantiated and added to the variable`transitions`of the source state.
 
