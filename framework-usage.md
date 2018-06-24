@@ -85,7 +85,7 @@ public:
 };
 ```
 
-The`Move`function provided by the interface sets the desired linear and angular speed of the robot. In the Actuators function, the desired linear and angular speed is used to calculate the required velocity of the left and right wheels to activate the motor. The class`MovementI`or `EventsI` requires the implementation of the functions`Sensors`and`Actuators`. This is the wrapper that maps the notions of RoboChart to the native simulation.
+The`Move()`function provided by the interface sets the desired linear and angular speed of the robot. In the` Actuators()` function, the desired linear and angular speed is used to calculate the required velocity of the left and right wheels to activate the motor. The class`MovementI`or `EventsI` requires the implementation of the functions`Sensors()`and`Actuators()`. This is the wrapper that maps the notions of RoboChart to the native simulation.
 
 ## Robot {#robot}
 
