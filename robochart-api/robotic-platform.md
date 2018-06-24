@@ -35,7 +35,7 @@ In this function, the model \(sensors and actuators\) of the robot \(e-puck in o
 
 ## Interface {#hardwarecomponenth}
 
-The interface class implements the `HardwareComponent` class. For a particular implementation, the `Sensors` function needs to be expanded to check whether the events happen or not. In our example, it is `obstacle`.
+The interface class implements the `HardwareComponent` class. For a particular implementation, the `Sensors()` function needs to be expanded to check whether the events happen or not. In our example, it is `obstacle`.
 
 # Robotic Platform {#robotic-platform}
 
