@@ -136,7 +136,7 @@ The `ContMovement` controller receives pointers to the robot, and one channel`ob
 
 ## State Machine {#state-machine}
 
-A state machine is a class that inherits from a abstract  class`StateMachine`, instantiates its substates and transitions and links them together. The classes that implement the states and transitions of the machine are presented in the next section.
+A state machine is a class that inherits from an abstract  class`StateMachine`, instantiates its substates and transitions and links them together. The classes that implement the states and transitions of the machine are presented in the next section.
 
 ```cpp
 //StmMovement.h
