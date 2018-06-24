@@ -2,9 +2,10 @@
 
 The state machine components are defined in the`State.h`header file. It declares three classes: State, State Machine and Transition. A subclass of`State`can implement the following methods:
 
-* `entry`: implements the entry action of the state;
-* `exit`: implements the exit action of the state;
-* `initial`: returns the index of the initial substate.
+* `entry()`: implements the entry action of the state;
+* `during()`: 
+* `exit()`: implements the exit action of the state;
+* `initial()`: returns the index of the initial substate.
 
 The transitions of the state are stored in the variable`transitions`. The code for `State` and `Transition` class is as follows:
 
