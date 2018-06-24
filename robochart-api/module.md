@@ -1,4 +1,6 @@
-# Module {#moduleh}
+```
+Module
+```
 
 The module class is the root of the simulation. When used in the ARGoS simulator it implements a`CCI_Controller`class, which provides a`ControlStep()`function that does not take any parameters and describes a single step of execution. Any subclass of`Module`must implement the methods`Init`and `ControlStep`.
 
@@ -35,6 +37,37 @@ private:
     std::shared_ptr<Robot> OAModule_Robot;
     std::shared_ptr<ContMovement> OAModule_ContMovement;
 };
+```
+
+```cpp
+//OAModule.cpp
+#include "OAModule.h"
+#include "StmMovement.h"
+
+void OAModule::Init(argos::TConfigurationNode& t_node) {
+    OAModule_Robot = std::make_shared<Robot> (obstacle);
+    OAModule_ContMovement = std::make_shared<ContMovement> (OAModule_Robot, obstacle);
+    std::shared_ptr<StmMovement> ContMovement_StmMovement = std::make_shared<StmMovement>(OAModule_Robot, OAModule_ContMovement, obstacle);
+    OAModule_ContMovement->stm = ContMovement_StmMovement;
+
+    // Epuck Sensors
+    OAModule_Robot->EventsI::light_sensor_epuck = GetSensor<argos::CCI_EPuckLightSensor>("epuck_light");
+    OAModule_Robot->EventsI::proximity_sensor_epuck = GetSensor<argos::CCI_EPuckProximitySensor>("epuck_proximity");
+    // Epuck Actuators
+    OAModule_Robot->MovementI::wheels_actuator = GetActuator<argos::CCI_EPuckWheelsActuator>("epuck_wheels");
+    OAModule_Robot->MovementI::base_leds_actuator = GetActuator<argos::CCI_EPuckBaseLEDsActuator>("epuck_base_leds");
+}
+
+void OAModule::Execute() {
+    OAModule_Robot->Sensors();
+    OAModule_ContMovement->Execute();
+    OAModule_Robot->Actuators();
+}
+
+void OAModule::ControlStep() {
+    Execute();
+    printf("\n");
+}
 ```
 
 
