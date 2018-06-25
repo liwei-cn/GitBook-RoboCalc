@@ -140,113 +140,161 @@ A state machine is a class that inherits from an abstract class`StateMachine`, i
 
 ```cpp
 //StmMovement.h
-class StmMovement: public robochart::StateMachine {
-private:
-    std::shared_ptr<robochart::obstacle_channel> obstacle;
-private:
-    std::shared_ptr<robochart::Timer> T;
-    std::shared_ptr<Robot> R;
-    std::shared_ptr<ContMovement> C;
+#define SM_DEBUG
+
+class StmMovement: public robochart::StateMachine
+{
+public:
+	std::shared_ptr<robochart::obstacle_channel> obstacle;
+public:
+	std::shared_ptr<robochart::Timer> T;
+	std::shared_ptr<Robot> R_Robot;
+	std::shared_ptr<ContMovement> C_ContMovement;
+public:
+	Loc dir;
+public:
+	StmMovement(
+			std::shared_ptr<Robot> R_Robot, 
+			std::shared_ptr<ContMovement> C_ContMovement, 
+			std::shared_ptr<robochart::obstacle_channel> obstacle);
+	~StmMovement();
+	int Initial();
+	virtual void Execute();
 
 public:
-     Loc dir;
-public:
-    StmMovement(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<robochart::obstacle_channel> obstacle);
-    ~StmMovement();
-    int Initial();
-    virtual void Execute();
+	class Moving : public robochart::State 
+	{
+		public:
+			Moving(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement) : State("Moving"), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement) 
+			{
+			}
+			void Entry()
+			{
+				R_Robot->Move(5, 0);
+			}
+		private:
+			std::shared_ptr<Robot> R_Robot;
+			std::shared_ptr<ContMovement> C_ContMovement;
+			std::shared_ptr<StmMovement> S_StmMovement;
+	};
+	class Turning : public robochart::State 
+	{
+		public:
+			Turning(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement) : State("Turning"), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement) 
+			{
+			}
+			void Entry()
+			{
+				if (S_StmMovement->dir == Loc::left) 
+				{
+					R_Robot->Move(0, 5);
+				}
+				else 
+				{
+					R_Robot->Move(0, -5);
+				}
+			}
+		private:
+			std::shared_ptr<Robot> R_Robot;
+			std::shared_ptr<ContMovement> C_ContMovement;
+			std::shared_ptr<StmMovement> S_StmMovement;
+	};
+	class i0 : public robochart::State 
+	{
+		public:
+			i0(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement) : State("i0"), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement) 
+			{
+			}
+		private:
+			std::shared_ptr<Robot> R_Robot;
+			std::shared_ptr<ContMovement> C_ContMovement;
+			std::shared_ptr<StmMovement> S_StmMovement;
+	};
 
-public:
-    class Moving : public robochart::State {
-    public:
-        Moving(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<StmMovement> S) : State("Moving"), R(R), C(C), S(S) {}
-
-    void entry() {
-        R->Move(5, 0);
-    }
-    private:
-        std::shared_ptr<Robot> R;
-        std::shared_ptr<ContMovement> C;
-        std::shared_ptr<StmMovement> S;
-    };
-    class Turning : public robochart::State {
-    public:
-        Turning(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<StmMovement> S) : State("Turning"), R(R), C(C), S(S) {}
-
-    void entry() {
-        if (S->dir == Loc::left) {
-            R->Move(0, 5);
-        }
-        else {
-            R->Move(0, -5);
-        }
-    }
-    private:
-        std::shared_ptr<Robot> R;
-        std::shared_ptr<ContMovement> C;
-        std::shared_ptr<StmMovement> S;
-    };
-
-public:
-    class t1 : public robochart::Transition {
-        private:
-            std::shared_ptr<Robot> R;
-            std::shared_ptr<ContMovement> C;
-            std::shared_ptr<StmMovement> S;
-            std::shared_ptr<robochart::obstacle_event> event;
-        public:
-            t1(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<StmMovement> S, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
-               robochart::Transition(src, tgt), R(R), C(C), S(S), event(nullptr)
-            {}
-            void Reg() {
-                if (event == nullptr) {
-                    event = S->obstacle->reg("StmMovement", robochart::optional<Loc>());
-                }
-            }
-            bool Check() {
-                Reg();
-                if (S->obstacle->Check(event) == true) {
-                    S->dir = std::get<0>(*event->getOther().value().lock()->getParameters()).value();
-                    ClearEvent();
-                    S->T->SetCounter(0);
-                    return true;
-                }
-                else {
-                    cancel();
-                    return false;
-                }
-            }
-            void cancel() {
-                if (event != nullptr) {
-                    S->obstacle->cancel(event);
-                    event = nullptr;
-                }
-            }
-            void ClearEvent() {
-                S->obstacle->acceptAndDelete(event);
-                event = nullptr;
-            }
-
-    };
-    class t2 : public robochart::Transition {
-        private:
-            std::shared_ptr<Robot> R;
-            std::shared_ptr<ContMovement> C;
-            std::shared_ptr<StmMovement> S;
-        public:
-            t2(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<StmMovement> S, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
-               robochart::Transition(src, tgt), R(R), C(C), S(S)
-            {}
-
-            bool condition() {
-                if (S->T->GetCounter() >= R->PI) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-    };
+	public:
+		class t1 : public robochart::Transition {
+			private:
+				std::shared_ptr<Robot> R_Robot;
+				std::shared_ptr<ContMovement> C_ContMovement;
+				std::shared_ptr<StmMovement> S_StmMovement;
+				std::shared_ptr<robochart::obstacle_event> reg_obstacle_event;
+			public:
+				t1(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
+				   robochart::Transition("S_StmMovement_t1", src, tgt), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement), reg_obstacle_event(nullptr)
+				{}
+				void Reg() {
+					if (reg_obstacle_event == nullptr) {
+						reg_obstacle_event = S_StmMovement->obstacle->Reg("StmMovement", robochart::Optional<Loc>());
+					}
+				}
+				bool Check() {
+					Reg();
+					if (S_StmMovement->obstacle->Check(reg_obstacle_event) == true) {
+						#ifdef SM_DEBUG
+							printf("TREATING EVENT obstacle\n");
+						#endif
+						S_StmMovement->dir = std::get<0>(*reg_obstacle_event->GetOther().GetValue().lock()->GetParameters()).GetValue();
+						ClearEvent();
+						return true;
+					}
+					else {
+						Cancel();
+						return false;
+					}
+				}
+				void Cancel() {
+					if (reg_obstacle_event != nullptr) {
+						S_StmMovement->obstacle->Cancel(reg_obstacle_event);
+						reg_obstacle_event = nullptr;
+					}
+				}
+				void ClearEvent() {
+					S_StmMovement->obstacle->AcceptAndDelete(reg_obstacle_event);
+					reg_obstacle_event = nullptr;
+				}
+				void Action() {
+					S_StmMovement->T->SetCounter(0);
+					#ifdef SM_DEBUG
+						printf("Resetting Clock T\n");
+					#endif
+				}
+		};
+	public:
+		class t2 : public robochart::Transition {
+			private:
+				std::shared_ptr<Robot> R_Robot;
+				std::shared_ptr<ContMovement> C_ContMovement;
+				std::shared_ptr<StmMovement> S_StmMovement;
+			public:
+				t2(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
+				   robochart::Transition("S_StmMovement_t2", src, tgt), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement)
+				{}
+				bool Condition() {
+					if (S_StmMovement->T->GetCounter() >= R_Robot->PI) {
+						#ifdef SM_DEBUG
+							printf("Condition of transition S_StmMovement_t2 is true\n");
+						#endif
+						return true;
+					}
+					else {
+						#ifdef SM_DEBUG
+							printf("Condition of transition S_StmMovement_t2 is false\n");
+						#endif
+						return false;
+					}
+				}
+		};
+	public:
+		class t0 : public robochart::Transition {
+			private:
+				std::shared_ptr<Robot> R_Robot;
+				std::shared_ptr<ContMovement> C_ContMovement;
+				std::shared_ptr<StmMovement> S_StmMovement;
+			public:
+				t0(std::shared_ptr<Robot> R_Robot, std::shared_ptr<ContMovement> C_ContMovement, std::shared_ptr<StmMovement> S_StmMovement, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
+				   robochart::Transition("S_StmMovement_t0", src, tgt), R_Robot(R_Robot), C_ContMovement(C_ContMovement), S_StmMovement(S_StmMovement)
+				{}
+		};
 };
 ```
 
