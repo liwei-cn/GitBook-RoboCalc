@@ -155,14 +155,14 @@ public:
 
 ## Optional {#event}
 
-The `optional`class is a template class. It can be used to define the associated value of an event. The event type can be any primitive or used-defined types. It is also used for define the other event as the paired event needs to have the reference to each other. Usage examples:
+The `Optional`class is a template class. It can be used to define the associated value of an event. The event type can be any primitive or used-defined types. It is also used for define the other event as the paired event needs to have the reference to each other. Usage examples:
 
 ```cpp
-optional<double> doubleType
+Optional<double> doubleType
 ```
 
 ```cpp
-optional<std::weak_ptr<Event<Args...>>> otherEvent
+Optional<std::weak_ptr<Event<Args...>>> otherEvent
 ```
 
 ```cpp
