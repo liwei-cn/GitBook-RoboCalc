@@ -97,106 +97,106 @@ A state machine is just a state. This class exists only to make the notion of a 
 namespace robochart {
 
 bool Transition::Execute() {
-	if (Condition() & Check()) {  //check condition() first if it is false no need to perform check(); condition() && check()
-		auto src = source.lock();
-		src->stage = State::s_Exit;
-		src->Execute();
-		Action();
-		auto tgt = target.lock();
-		tgt->stage = State::s_Enter;
-		tgt->Execute();
-		return true;
-	}
-	return false;
+    if (Condition() & Check()) {  //check condition() first if it is false no need to perform check(); condition() && check()
+        auto src = source.lock();
+        src->stage = State::s_Exit;
+        src->Execute();
+        Action();
+        auto tgt = target.lock();
+        tgt->stage = State::s_Enter;
+        tgt->Execute();
+        return true;
+    }
+    return false;
 }
 
 void State::Execute() {
-	switch (stage) {
-	case s_Enter:
+    switch (stage) {
+    case s_Enter:
 #ifdef STATE_DEBUG
-		printf("Entering State %s\n", this->name.c_str());
+        printf("Entering State %s\n", this->name.c_str());
 #endif
-		Entry();
-		if (Initial() >= 0) {
-			states[Initial()]->stage = s_Enter;  //this has already makes sure that every time the state machine is entered, it starts executing from initial state?
-			states[Initial()]->Execute();
-		}
-		stage = s_Execute;
-		break;
-	case s_Execute:
+        Entry();
+        if (Initial() >= 0) {
+            states[Initial()]->stage = s_Enter;  //this has already makes sure that every time the state machine is entered, it starts executing from initial state?
+            states[Initial()]->Execute();
+        }
+        stage = s_Execute;
+        break;
+    case s_Execute:
 #ifdef STATE_DEBUG
-		printf("Executing a state %s\n", this->name.c_str());
+        printf("Executing a state %s\n", this->name.c_str());
 #endif
-		while(TryExecuteSubstates(states));      //this makes sure more than one transition can happen at one cycle; execute the state from bottom to up
-		if (TryTransitions() == false) {
+        while(TryExecuteSubstates(states));      //this makes sure more than one transition can happen at one cycle; execute the state from bottom to up
+        if (TryTransitions() == false) {
 #ifdef STATE_DEBUG
-			printf("Executing during action of %s!\n", this->name.c_str());
+            printf("Executing during action of %s!\n", this->name.c_str());
 #endif
-			During();                              //if no transition is enabled, execute during action in every time step
-		}
-		else {
+            During();                              //if no transition is enabled, execute during action in every time step
+        }
+        else {
 #ifdef STATE_DEBUG
-			printf("Not Executing during action of %s!\n", this->name.c_str());
+            printf("Not Executing during action of %s!\n", this->name.c_str());
 #endif
-		}
-		break;
-	case s_Exit:
-		Exit();
-		stage = s_Inactive;
-		break;
-	}
+        }
+        break;
+    case s_Exit:
+        Exit();
+        stage = s_Inactive;
+        break;
+    }
 }
 
 bool State::TryTransitions() {
 #ifdef STATE_DEBUG
-	printf("trying %ld transitions\n", transitions.size());
+    printf("trying %ld transitions\n", transitions.size());
 #endif
-	for (int i = 0; i < transitions.size(); i++) {
+    for (int i = 0; i < transitions.size(); i++) {
 #ifdef STATE_DEBUG
-		printf("trying transition: %s\n", transitions[i]->name.c_str());
+        printf("trying transition: %s\n", transitions[i]->name.c_str());
 #endif
-		bool b = transitions[i]->Execute();
-		if (b) {
-			this->mark = true;
-			CancelTransitions(i);  //erase OTHER events (in the channel) already registered by the transitions of this state, as the state tried its every possible transitions
+        bool b = transitions[i]->Execute();
+        if (b) {
+            this->mark = true;
+            CancelTransitions(i);  //erase OTHER events (in the channel) already registered by the transitions of this state, as the state tried its every possible transitions
 #ifdef STATE_DEBUG
-			printf("transition %s true\n", transitions[i]->name.c_str());
+            printf("transition %s true\n", transitions[i]->name.c_str());
 #endif
-			return true;
-		}
-		else {
+            return true;
+        }
+        else {
 #ifdef STATE_DEBUG
-			printf("transition %s false\n", transitions[i]->name.c_str());
+            printf("transition %s false\n", transitions[i]->name.c_str());
 #endif
-		}
-	}
-	this->mark = false;
-	return false;
+        }
+    }
+    this->mark = false;
+    return false;
 }
 
 void State::CancelTransitions(int i) {
-	for (int j = 0; j < transitions.size(); j++) {
-		if (j != i) {
+    for (int j = 0; j < transitions.size(); j++) {
+        if (j != i) {
 #ifdef STATE_DEBUG
-			printf("CANCEL transition: %s\n",transitions[j]->name.c_str());
+            printf("CANCEL transition: %s\n",transitions[j]->name.c_str());
 #endif
-			transitions[j]->Cancel();
-		}
-	}
+            transitions[j]->Cancel();
+        }
+    }
 }
 
 //return false either no sub states or no transitions are enabled in the sub states
 bool State::TryExecuteSubstates(std::vector<std::shared_ptr<State>> s) {
-	for (int i = 0; i < s.size(); i++) {
-		// printf("state index : %d; stage: %d\n", i, states[i]->stage);
-		// there should be only one active state in a single state machine
-		if (s[i]->stage == s_Inactive) continue;
-		else {
-			s[i]->Execute();
-			return s[i]->mark;      //keep trying the transitions at the same level if there is transition from one state to another
-		}
-	}
-	return false;
+    for (int i = 0; i < s.size(); i++) {
+        // printf("state index : %d; stage: %d\n", i, states[i]->stage);
+        // there should be only one active state in a single state machine
+        if (s[i]->stage == s_Inactive) continue;
+        else {
+            s[i]->Execute();
+            return s[i]->mark;      //keep trying the transitions at the same level if there is transition from one state to another
+        }
+    }
+    return false;
 }
 
 }
@@ -206,11 +206,11 @@ bool State::TryExecuteSubstates(std::vector<std::shared_ptr<State>> s) {
 
 Similarly to a states, transitions must extend the class Transition. They can provide a number of functions:`reg`,`check`,`cancel`,`condition`and`action`. The first three are necessary if the transition has an event as a trigger, the fourth if the transition has a condition and the final if the transition has an action. A subclass of`Transition`may implement four optional functions:
 
-* `virtual void reg()`: this function is only implemented if the transition has a trigger with an event. In this case, the function`reg`of a channel must be called \(with appropriate parameters\) and the event returned by the call must be stored in a variable such as`event`;
-* `bool check()`: this function is implemented to check the occurrence of the registered event. It calls the`check`function of the channel on the event produced by`reg`;
-* `void cancel()`: this function call the method cancel of the channel with the event produced by`reg`as a parameter;
-* `bool condition()`: this function implemented the condition of the transition;
-* `void action()`: this function implements the action of the transition. If the transition's trigger contains an event, this function must call the function`accept`or`acceptAndDelete`of the channel \(on the event obtained from`reg`\). The function`accept`should be called if the channel is synchronous, and`acceptAndDelete`should be called if the channel is asynchronous.
+* `virtual void Reg()`: this function is only implemented if the transition has a trigger with an event. In this case, the function`reg`of a channel must be called \(with appropriate parameters\) and the event returned by the call must be stored in a variable such as`event`;
+* `bool Check()`: this function is implemented to check the occurrence of the registered event. It calls the`check`function of the channel on the event produced by`reg`;
+* `void Cancel()`: this function call the method cancel of the channel with the event produced by`reg`as a parameter;
+* `bool Condition()`: this function implemented the condition of the transition;
+* `void Action()`: this function implements the action of the transition. If the transition's trigger contains an event, this function must call the function`accept`or`acceptAndDelete`of the channel \(on the event obtained from`reg`\). The function`accept`should be called if the channel is synchronous, and`acceptAndDelete`should be called if the channel is asynchronous.
 
 In the obstacle avoidance example, the transition `t1` has a trigger of the form`obstacle?dir`and also reset the clock `T`. This transition is implemented as the classt`1`, where`reg`is implemented as a function that calls the function`reg`of the channel`obstacle`of the state machine with source name `StmMovement` \(identifying the state machine StmMovement\) and undefined parameter`optional<Loc>()`. The result of the`ref`function of the channel is a pointer to an event that is recorded in the variable`event`.
 
