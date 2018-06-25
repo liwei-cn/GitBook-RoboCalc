@@ -153,8 +153,8 @@ public:
 public:
     StmMovement(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<robochart::obstacle_channel> obstacle);
     ~StmMovement();
-    int initial();
-    virtual void execute();
+    int Initial();
+    virtual void Execute();
 
 public:
     class Moving : public robochart::State {
@@ -198,13 +198,13 @@ public:
             t1(std::shared_ptr<Robot> R, std::shared_ptr<ContMovement> C, std::shared_ptr<StmMovement> S, std::weak_ptr<robochart::State> src, std::weak_ptr<robochart::State> tgt):
                robochart::Transition(src, tgt), R(R), C(C), S(S), event(nullptr)
             {}
-            void reg() {
+            void Reg() {
                 if (event == nullptr) {
                     event = S->obstacle->reg("StmMovement", robochart::optional<Loc>());
                 }
             }
-            bool check() {
-                reg();
+            bool Check() {
+                Reg();
                 if (S->obstacle->check(event) == true) {
                     S->dir = std::get<0>(*event->getOther().value().lock()->getParameters()).value();
                     ClearEvent();
