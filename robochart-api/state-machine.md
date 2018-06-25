@@ -206,7 +206,7 @@ bool State::TryExecuteSubstates(std::vector<std::shared_ptr<State>> s) {
 
 Similarly to states, transitions must extend the class Transition. They can provide a number of functions:`Reg`,`Check`,`Cancel`,`Condition`and`Action`. The first three are necessary if the transition has an event as a trigger, the fourth if the transition has a condition and the final if the transition has an action. A subclass of`Transition`may implement five optional functions:
 
-* `virtual void Reg()`: this function is only implemented if the transition has a trigger with an event. In this case, the function`reg`of a channel must be called \(with appropriate parameters\) and the event returned by the call must be stored in a variable such as`event`;
+* `void Reg()`: this function is only implemented if the transition has a trigger with an event. In this case, the function`reg`of a channel must be called \(with appropriate parameters\) and the event returned by the call must be stored in a variable such as`event`;
 * `bool Check()`: this function is implemented to check the occurrence of the registered event. It calls the`Check`function of the channel on the event produced by`Reg`;
 * `void Cancel()`: this function call the method cancel of the channel with the event produced by`reg`as a parameter;
 * `bool Condition()`: this function implemented the condition of the transition;
