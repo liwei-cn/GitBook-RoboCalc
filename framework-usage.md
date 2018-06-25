@@ -118,16 +118,16 @@ A controller class`ContMovement` implements a generic Controller class that cont
 //ContMovement.h
 class ContMovement: public robochart::Controller {
 public:
-    ContMovement(
-            std::shared_ptr<Robot> R, 
-            std::shared_ptr<robochart::obstacle_channel> obstacle);
-    virtual ~ContMovement();
-    virtual void Execute();
+	ContMovement(
+			std::shared_ptr<Robot> R_Robot, 
+			std::shared_ptr<robochart::obstacle_channel> obstacle);
+	virtual ~ContMovement();
+	virtual void Execute();
 
 private:
-    std::shared_ptr<robochart::obstacle_channel> obstacle;
+	std::shared_ptr<robochart::obstacle_channel> obstacle;
 private:
-    std::shared_ptr<Robot> R;
+	std::shared_ptr<Robot> R_Robot;
 
 };
 ```
