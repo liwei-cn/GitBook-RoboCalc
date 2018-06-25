@@ -173,32 +173,34 @@ Optional<std::weak_ptr<Event<Args...>>> otherEvent
 
 namespace robochart {
 
-template <typename T>  //template class
-class optional {
+template <typename T>
+class Optional {
 public:
-    optional(): set(false) {}
-    optional(T t): set(true),v(t) {}
+	Optional(): set(false) {}
+	Optional(T t): set(true),v(t) {}
 
-    bool exists() {
-        return set;
-    }
-    T value() {
-        return v;
-    }
-    void setValue(T t) {
-        set = true;
-        v = t;
-        printf("### CHANGING VALUE OF OPTIONAL\n");
-    }
-    ~optional() {}
+	bool Exists() {
+		return set;
+	}
+	T GetValue() {
+		return v;
+	}
+	void SetValue(T t) {
+		set = true;
+		v = t;
+		printf("### CHANGING VALUE OF OPTIONAL\n");
+	}
+	~Optional() {}
 private:
-    T v;  //the value of this optional class; it can be the value associated with an event or otherEvent
-    bool set;
+	T v;
+	bool set;
 };
 
 }
 
-#endif /* ROBOCALC_OPTIONAL_H_ */
+#endif
+
+
 ```
 
 We use the template class, as the type of the associated value the an event is unknown. Just like we can create** function templates**, we can also create **class templates**, allowing classes to have members that use template parameters as types.
