@@ -210,7 +210,7 @@ Similarly to a states, transitions must extend the class Transition. They can pr
 * `bool Check()`: this function is implemented to check the occurrence of the registered event. It calls the`check`function of the channel on the event produced by`reg`;
 * `void Cancel()`: this function call the method cancel of the channel with the event produced by`reg`as a parameter;
 * `bool Condition()`: this function implemented the condition of the transition;
-* `void Action()`: this function implements the action of the transition. If the transition's trigger contains an event, this function must call the function`accept`or`acceptAndDelete`of the channel \(on the event obtained from`reg`\). The function`accept`should be called if the channel is synchronous, and`acceptAndDelete`should be called if the channel is asynchronous.
+* `void Action()`: this function implements the action of the transition. If the transition's trigger contains an event, this function must call the function`Accept`or`AcceptAndDelete`of the channel \(on the event obtained from`reg`\). The function`accept`should be called if the channel is synchronous, and`acceptAndDelete`should be called if the channel is asynchronous.
 
 In the obstacle avoidance example, the transition `t1` has a trigger of the form`obstacle?dir`and also reset the clock `T`. This transition is implemented as the classt`1`, where`reg`is implemented as a function that calls the function`reg`of the channel`obstacle`of the state machine with source name `StmMovement` \(identifying the state machine StmMovement\) and undefined parameter`optional<Loc>()`. The result of the`ref`function of the channel is a pointer to an event that is recorded in the variable`event`.
 
