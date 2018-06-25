@@ -118,21 +118,21 @@ A controller class`ContMovement` implements a generic Controller class that cont
 //ContMovement.h
 class ContMovement: public robochart::Controller {
 public:
-	ContMovement(
-			std::shared_ptr<Robot> R_Robot, 
-			std::shared_ptr<robochart::obstacle_channel> obstacle);
-	virtual ~ContMovement();
-	virtual void Execute();
+    ContMovement(
+            std::shared_ptr<Robot> R_Robot, 
+            std::shared_ptr<robochart::obstacle_channel> obstacle);
+    virtual ~ContMovement();
+    virtual void Execute();
 
 private:
-	std::shared_ptr<robochart::obstacle_channel> obstacle;
+    std::shared_ptr<robochart::obstacle_channel> obstacle;
 private:
-	std::shared_ptr<Robot> R_Robot;
+    std::shared_ptr<Robot> R_Robot;
 
 };
 ```
 
-The `ContMovement` controller receives pointers to the robot, and one channel`obstacle`. The`stm`field needs to be set by the module in the `Init()` function to avoid issues with circular dependencies.
+The `ContMovement` controller receives pointers to the robot, and one channel`obstacle`. The`stm`field needs to be set by the module in the `Init()` function of the module class to avoid issues with circular dependencies.
 
 ## State Machine {#state-machine}
 
