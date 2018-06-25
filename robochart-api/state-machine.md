@@ -96,80 +96,107 @@ A state machine is just a state. This class exists only to make the notion of a 
 
 namespace robochart {
 
-bool Transition::execute() {
-    reg();
-    if (condition() && check()) {  //check condition() first if it is false no need to perform check()
-        auto src = source.lock();  //weak_ptr has to be copied into a shared_ptr before usage
-        src->stage = State::s_Exit;
-        src->execute();
-        action();
-        auto tgt = target.lock();
-        tgt->stage = State::s_Enter;
-        tgt->execute();
-        return true;
-    }
-    return false;
+bool Transition::Execute() {
+	if (Condition() & Check()) {  //check condition() first if it is false no need to perform check(); condition() && check()
+		auto src = source.lock();
+		src->stage = State::s_Exit;
+		src->Execute();
+		Action();
+		auto tgt = target.lock();
+		tgt->stage = State::s_Enter;
+		tgt->Execute();
+		return true;
+	}
+	return false;
 }
 
-void State::execute() {
-    switch (stage) {
-    case s_Enter:
-        printf("Entering State %s\n", this->name.c_str());
-        entry();  //The first cycle executes the entry() of the initial state of the state machine; entry() of stm is empty
-        if (initial() >= 0) {  //enter the initial state: states[0]
-            states[initial()]->stage = s_Enter;  
-            states[initial()]->execute();
-        }
-        stage = s_Execute;
-        break;
-    case s_Execute:  //after the first cycle, the state machine execution always starts here as it is always in s_Execute stage
-        printf("Executing a state %s\n", this->name.c_str());
-        // if none of the transitions succeed, execute the substates
-        if (try_transitions() == false) {
-            while(try_execute_substates(states));  //this line is always executed as the state machine (which is treated as a composite state) has 0 transitions; hence its substates are executed
-        }                                          //this makes sure more than one transition can happen at one cycle
-        break;
-    case s_Exit:
-        exit();
-        stage = s_Inactive;
-        break;
-    }
+void State::Execute() {
+	switch (stage) {
+	case s_Enter:
+#ifdef STATE_DEBUG
+		printf("Entering State %s\n", this->name.c_str());
+#endif
+		Entry();
+		if (Initial() >= 0) {
+			states[Initial()]->stage = s_Enter;  //this has already makes sure that every time the state machine is entered, it starts executing from initial state?
+			states[Initial()]->Execute();
+		}
+		stage = s_Execute;
+		break;
+	case s_Execute:
+#ifdef STATE_DEBUG
+		printf("Executing a state %s\n", this->name.c_str());
+#endif
+		while(TryExecuteSubstates(states));      //this makes sure more than one transition can happen at one cycle; execute the state from bottom to up
+		if (TryTransitions() == false) {
+#ifdef STATE_DEBUG
+			printf("Executing during action of %s!\n", this->name.c_str());
+#endif
+			During();                              //if no transition is enabled, execute during action in every time step
+		}
+		else {
+#ifdef STATE_DEBUG
+			printf("Not Executing during action of %s!\n", this->name.c_str());
+#endif
+		}
+		break;
+	case s_Exit:
+		Exit();
+		stage = s_Inactive;
+		break;
+	}
 }
 
-bool State::try_transitions() {
-    printf("trying %ld transitions\n", transitions.size());
-    for (int i = 0; i < transitions.size(); i++) {
-        // printf("transition index : %d\n", i);
-        bool b = transitions[i]->execute();
-        if (b) {
-            cancel_transitions(i); //erase OTHER events (in the channel) already registered by the transitions of this state, as the state tried its every possible transitions
-            return true;
-        }
-    }
-    return false;
+bool State::TryTransitions() {
+#ifdef STATE_DEBUG
+	printf("trying %ld transitions\n", transitions.size());
+#endif
+	for (int i = 0; i < transitions.size(); i++) {
+#ifdef STATE_DEBUG
+		printf("trying transition: %s\n", transitions[i]->name.c_str());
+#endif
+		bool b = transitions[i]->Execute();
+		if (b) {
+			this->mark = true;
+			CancelTransitions(i);  //erase OTHER events (in the channel) already registered by the transitions of this state, as the state tried its every possible transitions
+#ifdef STATE_DEBUG
+			printf("transition %s true\n", transitions[i]->name.c_str());
+#endif
+			return true;
+		}
+		else {
+#ifdef STATE_DEBUG
+			printf("transition %s false\n", transitions[i]->name.c_str());
+#endif
+		}
+	}
+	this->mark = false;
+	return false;
 }
 
-void State::cancel_transitions(int i) {
-    for (int j = 0; j < transitions.size(); j++) {
-        if (j != i) {
-            printf("CANCEL transition index: %d\n",j);
-            transitions[j]->cancel();
-        }
-    }
+void State::CancelTransitions(int i) {
+	for (int j = 0; j < transitions.size(); j++) {
+		if (j != i) {
+#ifdef STATE_DEBUG
+			printf("CANCEL transition: %s\n",transitions[j]->name.c_str());
+#endif
+			transitions[j]->Cancel();
+		}
+	}
 }
 
-bool State::try_execute_substates(std::vector<std::shared_ptr<State>> s) {
-    for (int i = 0; i < s.size(); i++) {
-        // printf("state index : %d; stage: %d\n", i, states[i]->stage);
-        // there should be only one active state 
-        if (s[i]->stage == s_Inactive) continue;
-        else {
-            s[i]->execute();
-            if (s[i]->stage == s_Inactive) { return true; }  //if there is any transition happened; loop it again.
-            else { return false; }
-        }
-    }
-    return false;
+//return false either no sub states or no transitions are enabled in the sub states
+bool State::TryExecuteSubstates(std::vector<std::shared_ptr<State>> s) {
+	for (int i = 0; i < s.size(); i++) {
+		// printf("state index : %d; stage: %d\n", i, states[i]->stage);
+		// there should be only one active state in a single state machine
+		if (s[i]->stage == s_Inactive) continue;
+		else {
+			s[i]->Execute();
+			return s[i]->mark;      //keep trying the transitions at the same level if there is transition from one state to another
+		}
+	}
+	return false;
 }
 
 }
