@@ -150,14 +150,14 @@ public:
 #endif
 ```
 
-* `reg`This function registers an event in the channel. That is, an event pointer is pushed into the channel buffer. Every time a transition is tried, the `reg`function will be called. 
-* `check`This function checks whether two events in the channel are compatible or not. It return true if they are compatible; false vice versa. When the two events comes from two different sources and the type of the event is the same, these two events are considered as compatible. If `check`is successful, each event would have a reference to each other via the functions `match` and `setOther`.
+* `Reg`This function registers an event in the channel. That is, an event pointer is pushed into the channel buffer. Every time a transition is tried, the `Reg`function will be called. 
+* `Check`This function checks whether two events in the channel are compatible or not. It return true if they are compatible; false vice versa. When the two events comes from two different sources and the type of the event is the same, these two events are considered as compatible. If `Check`is successful, each event would have a reference to each other via the functions `match` and `setOther`.
 
-* `cancel` This function remove and destroy the event from the channel buffer. For example, if an event is registered into the channel but `check` is false, then this event need to be removed from the channel.
+* `Cancel` This function remove and destroy the event from the channel buffer. For example, if an event is registered into the channel but `Check` is false, then this event need to be removed from the channel.
 
-* `accept` and `acceptAndDelete`These two functions remove the events from the channel if they are treated \(after `check`return true\). `accept` is used in the synchronous communication, and acceptAndDelete is used in the asynchronous communication.
+* `Accept` and `AcceptAndDelete`These two functions remove the events from the channel if they are treated \(after `check`return true\). `Accept` is used in the synchronous communication, and `AcceptAndDelete` is used in the asynchronous communication.
 
-* `clear`This will clear the channel and all the shared pointers in the channel will be destroyed. When you clear the vector, the shared pointers it contains are destroyed, and this action automatically de-allocates any encapsulated objects with no more shared pointers referring to them.
+* `Clear`This will clear the channel and all the shared pointers in the channel will be destroyed. When you clear the vector, the shared pointers it contains are destroyed, and this action automatically de-allocates any encapsulated objects with no more shared pointers referring to them.
 
 The entire purpose of smart pointers is that they manage memory for you, and the entire purpose of shared pointers is that the thing they point to is automatically freed when no more shared pointers point to it.
 
