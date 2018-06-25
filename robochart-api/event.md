@@ -150,8 +150,8 @@ public:
 #endif
 ```
 
-* `compatible` Check whether two events in the channel come from different sources by comparing two strings. This means the communication is only validate between two different components. The state machine can not `send` an event that triggers a transition of its own. 
-* `match`Set the reference of each event. This is used for deleting the event from the channel after they are treated. If it is asynchronous communication, after the events are treated \(e.g. a transition is enabled\), both registered will be deleted from the channel by one side of the communication. In the obstacle avoidance example,, the state machine will be responsible to clear the paired events from the channel.
+* `Compatible` Check whether two events in the channel come from different sources by comparing two strings. This means the communication is only validate between two different components. The state machine can not `send` an event that triggers a transition of its own. 
+* `Match`Set the reference of each event. This is used for deleting the event from the channel after they are treated. If it is asynchronous communication, after the events are treated \(e.g. a transition is enabled\), both registered will be deleted from the channel by one side of the communication. In the obstacle avoidance example,, the state machine will be responsible to clear the paired events from the channel.
 
 ## Optional {#event}
 
