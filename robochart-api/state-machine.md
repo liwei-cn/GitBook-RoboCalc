@@ -2,10 +2,10 @@
 
 The state machine components are defined in the`State.h`header file. It declares three classes: State, State Machine and Transition. A subclass of`State`can implement the following methods:
 
-* `entry()`: implement the entry action of the state;
-* `during()`: implement the during action of the state;
-* `exit()`: implement the exit action of the state;
-* `initial()`: return the index of the initial substate.
+* `Entry()`: implement the entry action of the state;
+* `During()`: implement the during action of the state;
+* `Exit()`: implement the exit action of the state;
+* `Initial()`: return the index of the initial substate.
 
 The transitions of the state are stored in the variable`transitions`. The code for `State` and `Transition` class is as follows:
 
@@ -25,54 +25,54 @@ class Transition;
 class State {
 
 public:
-	std::string name;
-	bool mark;
-	State(std::string n) : name(n), stage(s_Inactive), mark(false) {}
-	virtual ~State() { printf("Deleting state %s\n", name.c_str()); }
-	virtual void Entry() {}
-	virtual void During() {}
-	virtual void Exit() {}
-	virtual int Initial() { return -1; }
+    std::string name;
+    bool mark;
+    State(std::string n) : name(n), stage(s_Inactive), mark(false) {}
+    virtual ~State() { printf("Deleting state %s\n", name.c_str()); }
+    virtual void Entry() {}
+    virtual void During() {}
+    virtual void Exit() {}
+    virtual int Initial() { return -1; }
 
-	enum Stages {
-		s_Enter, s_Execute, s_Exit, s_Inactive
-	};
-	Stages stage;
-	std::vector<std::shared_ptr<State>> states;
-	std::vector<std::shared_ptr<Transition>> transitions;
-	virtual void Execute();
+    enum Stages {
+        s_Enter, s_Execute, s_Exit, s_Inactive
+    };
+    Stages stage;
+    std::vector<std::shared_ptr<State>> states;
+    std::vector<std::shared_ptr<Transition>> transitions;
+    virtual void Execute();
 
-	bool TryTransitions();
+    bool TryTransitions();
 
-	bool TryExecuteSubstates(std::vector<std::shared_ptr<State>> s);
+    bool TryExecuteSubstates(std::vector<std::shared_ptr<State>> s);
 
-	void CancelTransitions(int i);
+    void CancelTransitions(int i);
 };
 
 class StateMachine: public State {
 public:
-	StateMachine(std::string n): State(n) {}
-	virtual ~StateMachine() {}
+    StateMachine(std::string n): State(n) {}
+    virtual ~StateMachine() {}
 };
 
 class Transition {
 
 private:
-	std::weak_ptr<State> source, target;
+    std::weak_ptr<State> source, target;
 public:
-	std::string name;
+    std::string name;
 public:
-	Transition(std::string n, std::weak_ptr<State> src, std::weak_ptr<State> tgt) :
-			name(n), source(src), target(tgt) {
-	}
-	virtual void Reg() {}
-	virtual bool Check() { return true; }
-	virtual void Cancel() {}
-	virtual bool Condition() { return true; }
-	virtual void Action() {}
-	virtual void ClearEvent() {};
-	virtual ~Transition() { source.reset(); target.reset(); printf("Deleting transition\n");}
-	bool Execute();
+    Transition(std::string n, std::weak_ptr<State> src, std::weak_ptr<State> tgt) :
+            name(n), source(src), target(tgt) {
+    }
+    virtual void Reg() {}
+    virtual bool Check() { return true; }
+    virtual void Cancel() {}
+    virtual bool Condition() { return true; }
+    virtual void Action() {}
+    virtual void ClearEvent() {};
+    virtual ~Transition() { source.reset(); target.reset(); printf("Deleting transition\n");}
+    bool Execute();
 };
 
 }
