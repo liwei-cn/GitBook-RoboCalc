@@ -5,23 +5,26 @@ In simulation, the smallest update unit for a timer is the control step. The sim
 ```cpp
 //Timer.h
 
+
 #ifndef ROBOCALC_TIMER_H_
 #define ROBOCALC_TIMER_H_
 
+#include <string>
+
+#define TIMER_DEBUG
+
 namespace robochart {
+
 class Timer {
 public:
 
-	Timer(double t = 0.1) : counter(0), waitFlag(false), waitPeoriod(0), startingCounter(65535), step(0.1)
+	Timer(std::string name) : name(name), counter(0), waitFlag(false), waitPeoriod(0), startingCounter(65535)
 	{}
 
 	int GetCounter() const {
 		return counter;
 	}
 
-	double GetTime() const {
-		return counter*step;
-	}
 	void SetCounter(int i) {counter = i;}
 
 	void IncCounter() {
@@ -30,7 +33,9 @@ public:
 			waitFlag = false;
 			startingCounter = 65535;
 		}
-		printf("counter: %d\n", counter);
+		#ifdef TIMER_DEBUG
+				printf("%s counter: %d\n", name.c_str(), counter);
+		#endif
 	}
 
 	void Wait(int i) {
@@ -43,15 +48,20 @@ public:
 		return waitFlag;
 	}
 
+	std::string GetName() {
+		return name;
+	}
+	
 private:
 	int counter, waitPeoriod, startingCounter;
 	bool waitFlag;
-	double step;
+	std::string name;
 };
 
 }
 
 #endif
+
 ```
 
 
