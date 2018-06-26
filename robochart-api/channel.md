@@ -151,7 +151,7 @@ public:
 ```
 
 * `Reg`This function registers an event in the channel. That is, an event pointer is pushed into the channel buffer. Every time a transition is tried, the `Reg`function will be called. 
-* `Check`This function checks whether two events in the channel are compatible or not. It return true if they are compatible; false vice versa. When the two events comes from two different sources and the type of the event is the same, these two events are considered as compatible. If `Check`is successful, each event would have a reference to each other via the functions `Match` and `setOther`.
+* `Check`This function checks whether two events in the channel are compatible or not. It return true if they are compatible; false vice versa. When the two events comes from two different sources and the type of the event is the same, these two events are considered as compatible. If `Check`is successful, each event would have a reference to each other via the functions `Match` and `SetOther`.
 
 * `Cancel` This function remove and destroy the event from the channel buffer. For example, if an event is registered into the channel but `Check` is false, then this event need to be removed from the channel.
 
