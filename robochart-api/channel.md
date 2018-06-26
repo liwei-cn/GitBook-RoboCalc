@@ -1,6 +1,6 @@
 # Channel
 
-A channel is instantiated using the class`Channel`instantiated with the types of the parameters. To simplify the usage of channels and events, we suggest declaring auxiliary types. For example, the obstacle channel and events are declared as, respectively, a Channel and an Event with an optional`string`parameters. The optional class allows the construction of expressions of the form`c?x`, where`x`is an input parameter. The channel is a buffer. It has a name and also a vector of reference of the events. The size of the buffer should be always kept to 2. This mean the communication is always one-to-one.
+A channel is instantiated using the class`Channel`instantiated with the types of the parameters. To simplify the usage of channels and events, we suggest declaring auxiliary types. For example, the obstacle channel and events are declared as, respectively, a Channel and an Event with an optional`string`parameters. The optional class allows the construction of expressions of the form`c?x`, where`x`is an input parameter. The channel is a buffer. It has a name and also a vector of reference of the events. The size of the buffer should be always kept to 2. This means the communication is always one-to-one.
 
 ```cpp
 //Channel.h
