@@ -14,7 +14,7 @@ It takes a`TConfigurationNode`that can be used to read parameters from the XML e
 //OAModule.h
 #include "Robot.h"
 #include "ContMovement.h"
-#include "channel_types.h"
+#include "ChannelTypes.h"
 
 #include <argos3/core/control_interface/ci_controller.h>
 
