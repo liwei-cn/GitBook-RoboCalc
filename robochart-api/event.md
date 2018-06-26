@@ -150,7 +150,7 @@ public:
 #endif
 ```
 
-* `Compatible` Check whether two events in the channel come from different sources by comparing two strings. This means the communication is only validate between two different components. The state machine can not `send` an event that triggers a transition of its own. 
+* `Compatible` Check whether two events in the channel come from different sources by comparing two strings. This means the communication is only valid between two different components. The state machine can not `send` an event that triggers a transition of its own. 
 * `Match`Set the reference of each event. This is used for deleting the event from the channel after they are treated. If it is asynchronous communication, after the events are treated \(e.g. a transition is enabled\), both registered will be deleted from the channel by one side of the communication. In the obstacle avoidance example,, the state machine will be responsible to clear the paired events from the channel.
 
 ## Optional {#event}
@@ -176,31 +176,29 @@ namespace robochart {
 template <typename T>
 class Optional {
 public:
-	Optional(): set(false) {}
-	Optional(T t): set(true),v(t) {}
+    Optional(): set(false) {}
+    Optional(T t): set(true),v(t) {}
 
-	bool Exists() {
-		return set;
-	}
-	T GetValue() {
-		return v;
-	}
-	void SetValue(T t) {
-		set = true;
-		v = t;
-		printf("### CHANGING VALUE OF OPTIONAL\n");
-	}
-	~Optional() {}
+    bool Exists() {
+        return set;
+    }
+    T GetValue() {
+        return v;
+    }
+    void SetValue(T t) {
+        set = true;
+        v = t;
+        printf("### CHANGING VALUE OF OPTIONAL\n");
+    }
+    ~Optional() {}
 private:
-	T v;
-	bool set;
+    T v;
+    bool set;
 };
 
 }
 
 #endif
-
-
 ```
 
 We use the template class, as the type of the associated value the an event is unknown. Just like we can create** function templates**, we can also create **class templates**, allowing classes to have members that use template parameters as types.
