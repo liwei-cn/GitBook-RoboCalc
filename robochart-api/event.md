@@ -166,7 +166,7 @@ Optional<std::weak_ptr<Event<Args...>>> otherEvent
 ```
 
 ```cpp
-//optional.h
+//Optional.h
 
 #ifndef ROBOCALC_OPTIONAL_H_
 #define ROBOCALC_OPTIONAL_H_
