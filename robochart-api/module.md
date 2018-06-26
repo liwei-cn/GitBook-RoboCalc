@@ -1,8 +1,6 @@
-
-
 # Module {#controllerh}
 
-The module class is the root of the simulation. When used in the ARGoS simulator it implements a`CCI_Controller`class, which provides a`ControlStep()`function that does not take any parameters and describes a single step of execution. Any subclass of`Module`must implement the methods`Init`and `ControlStep`.
+The module class is the root of the simulation. When used in the ARGoS simulator it implements a`CCI_Controller`class, which provides a`ControlStep()`function that does not take any parameters and describes a single step of execution. Any subclass of`Module`must implement the methods`Init()`and `ControlStep()`.
 
 In ARGoS, `Init`has the following signature:
 
