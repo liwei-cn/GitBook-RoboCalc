@@ -2,8 +2,6 @@ The following are current constraints of usage of RoboChart for constructing a s
 
 * The name and type of the event used for connecting communication between different components should be the same.
 
-* Only asynchronous communication is supported \(TODO\).
-
 * The generated code is not targeted for some specific simulator. The user needs to extend the framework to fit different needs.
 
 * The clock should only be defined inside the state machine.
