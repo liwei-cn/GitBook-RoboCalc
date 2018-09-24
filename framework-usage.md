@@ -99,8 +99,8 @@ public:
         std::shared_ptr<robochart::obstacle_channel> obstacle);
     virtual ~Robot();
 
-    void Sensors();
-    void Actuators();
+    void Sense();
+    void Actuate();
 
 private:
     std::shared_ptr<robochart::obstacle_channel> obstacle;
