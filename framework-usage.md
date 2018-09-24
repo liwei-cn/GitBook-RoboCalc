@@ -57,8 +57,8 @@ public:
     EventsI(std::shared_ptr<robochart::obstacle_channel> obstacle);
     virtual ~EventsI();
 
-    virtual void Sensors();
-    virtual void Actuators();
+    virtual void Sense();
+    virtual void Actuate();
 
 
 private:
