@@ -1,6 +1,6 @@
 ## Hardware Component {#hardwarecomponenth}
 
-A subclass of`HardwareComponent`should implement two methods`Sensors()`and`Actuators()`. These classes provide a connection between the simulator \(ARGoS in our case\) and the RoboChart model. An extension of `HardwareComponent`function is as follows:
+A subclass of`HardwareComponent`should implement two methods`Sense()`and`Actuate()`. These classes provide a connection between the simulator \(ARGoS in our case\) and the RoboChart model. An extension of `HardwareComponent`function is as follows:
 
 ```cpp
 //HardwareComponent.h
