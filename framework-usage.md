@@ -75,8 +75,8 @@ public:
     virtual ~MovementI();
     void Move(double lv, double av);
 
-    virtual void Sensors();
-    virtual void Actuators();
+    virtual void Sense();
+    virtual void Actuate();
 
 public:
     int PI;
