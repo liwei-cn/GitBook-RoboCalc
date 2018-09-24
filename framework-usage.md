@@ -108,7 +108,7 @@ private:
 };
 ```
 
-The constructor instantiates each of the interfaces, and the functions`Sensors()`and`Actuators()`execute the respective functions of each of the interfaces.
+The constructor instantiates each of the interfaces, and the functions`Sense()`and`Actuate()`execute the respective functions of each of the interfaces.
 
 ## Controller {#controller}
 
