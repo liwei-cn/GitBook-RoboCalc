@@ -57,9 +57,9 @@ void OAModule::Init(argos::TConfigurationNode& t_node) {
 }
 
 void OAModule::Execute() {
-    OAModule_Robot->Sensors();
+    OAModule_Robot->Sense();
     OAModule_ContMovement->Execute();
-    OAModule_Robot->Actuators();
+    OAModule_Robot->Actuate();
 }
 
 void OAModule::ControlStep() {
