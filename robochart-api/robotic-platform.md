@@ -35,7 +35,7 @@ In this function, the model \(sensors and actuators\) of the robot \(e-puck in o
 
 ## Interface {#hardwarecomponenth}
 
-The interface class implements the `HardwareComponent` class. For a particular implementation, the `Sensors()` function needs to be expanded to check whether the events happen or not. In our example, it is `obstacle`. The `Actuators()`function needs to be expanded to set the motor of the robot. For example, for differential wheeled robot, the `Actuators()`function will set the left and right speed of the robot.
+The interface class implements the `HardwareComponent` class. For a particular implementation, the `Sense()` function needs to be expanded to check whether the events happen or not. In our example, it is `obstacle`. The `Actuate()`function needs to be expanded to set the motor of the robot. For example, for differential wheeled robot, the `Actuate()`function will set the left and right speed of the robot.
 
 # Robotic Platform {#robotic-platform}
 
