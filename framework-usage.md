@@ -41,8 +41,8 @@ class HardwareComponent {
 public:
     HardwareComponent() {}
     virtual ~HardwareComponent() {}
-    virtual void Sensors() = 0;
-    virtual void Actuators() = 0;
+    virtual void Sense() = 0;
+    virtual void Actuate() = 0;
 };
 ```
 
